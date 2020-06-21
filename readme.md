@@ -48,6 +48,65 @@ En la siguiente ilustracion se detalla la topologia realizada en la herramienta 
 ![Conexiones realizadas](./assets/conexiones.PNG)
 
 
+#### Comandos 
+
+##### **VLANS**
+
+Tibas, Uruca, Garita, Coyol, San Rafael, San Joaquin
+
+``` bash
+interface vlan 10
+description Datos
+no shutdown
+exit
+
+```
+``` bash
+interface vlan 20
+description Soporte
+no shutdown
+exit
+```
+
+- - - 
+
+
+##### **Asignacion de puertos**
+
+
+Tibas, Uruca, Garita, Coyol, San Rafael, San Joaquin
+
+``` bash
+interface range fa0/2 - fa0/12
+switchport mode access 
+switchport access vlan 10
+exit
+```
+
+``` bash
+interface range  fa0/13 - fa0/24
+switchport mode access 
+switchport access vlan 20
+exit
+```
+
+- - - 
+
+##### **Trunks**
+
+Tibas, Uruca, Garita, Coyol, San Rafael, San Joaquin
+
+``` bash
+interface fa0/1
+switchport mode trunk
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 10,20
+exit
+```
+- - - 
+
 ## Subneteo
+
+Para realizar la distirbucion se brindo la siguiente red `10.15.0.0/16`
 
 ## Showrun 
