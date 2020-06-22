@@ -48,62 +48,9 @@ En la siguiente ilustracion se detalla la topologia realizada en la herramienta 
 ![Conexiones realizadas](./assets/conexiones.PNG)
 
 
-#### Comandos 
-
-##### **VLANS**
-
-Tibas, Uruca, Garita, Coyol, San Rafael, San Joaquin
-
-``` bash
-interface vlan 10
-description Datos
-no shutdown
-exit
-
-```
-``` bash
-interface vlan 20
-description Soporte
-no shutdown
-exit
-```
-
-- - - 
 
 
-##### **Asignacion de puertos**
 
-
-Tibas, Uruca, Garita, Coyol, San Rafael, San Joaquin
-
-``` bash
-interface range fa0/2 - fa0/12
-switchport mode access 
-switchport access vlan 10
-exit
-```
-
-``` bash
-interface range  fa0/13 - fa0/24
-switchport mode access 
-switchport access vlan 20
-exit
-```
-
-- - - 
-
-##### **Trunks**
-
-Tibas, Uruca, Garita, Coyol, San Rafael, San Joaquin
-
-``` bash
-interface fa0/1
-switchport mode trunk
-switchport trunk encapsulation dot1q
-switchport trunk allowed vlan 10,20
-exit
-```
-- - - 
 
 ## Subneteo
 
@@ -1001,7 +948,7 @@ A su vez `Uruca` se divide en  2 redes para los vlans
 |Nombre  | Dirección de red | Primera utilizable | Ultima utilizable | Broadcast     | Mascara            |
 |--------|------------------|--------------------|-------------------|---------------|--------------------|
 |Soporte | 10.15.80.0       | 10.15.80.1         | 10.15.80.254      | 10.15.80.255  | 255.255.255.0/24   |      
-|Datos	 | 10.15.81.1       | 10.15.81.1         | 10.15.81.254      | 10.15.81.255  | 255.255.255.0/24   | 
+|Datos	 | 10.15.81.0       | 10.15.81.1         | 10.15.81.254      | 10.15.81.255  | 255.255.255.0/24   | 
 
 **Uruca**
 
@@ -1009,6 +956,203 @@ A su vez `Uruca` se divide en  2 redes para los vlans
 |--------|------------------|--------------------|-------------------|---------------|--------------------|
 |Soporte | 10.15.82.0       | 10.15.82.1         | 10.15.82.254      | 10.15.82.255  | 255.255.255.0/24   |      
 |Datos	 | 10.15.83.1       | 10.15.83.1         | 10.15.83.254      | 10.15.83.255  | 255.255.255.0/24   | 
+
+
+
+## Comandos 
+
+#### **VLANS**
+
+Tibas, Uruca, Garita, Coyol, San Rafael, San Joaquin
+
+``` bash
+interface vlan 10
+description Datos
+no shutdown
+exit
+```
+
+``` bash
+interface vlan 20
+description Soporte
+no shutdown
+exit
+```
+
+- - - 
+
+
+#### **Asignacion de puertos**
+
+
+Tibas, Uruca, Garita, Coyol, San Rafael, San Joaquin
+
+``` bash
+interface range fa0/2 - fa0/12
+switchport mode access 
+switchport access vlan 10
+exit
+```
+
+``` bash
+interface range  fa0/13 - fa0/24
+switchport mode access 
+switchport access vlan 20
+exit
+```
+
+- - - 
+
+#### **Trunks**
+
+Tibas, Uruca, Garita, Coyol, San Rafael, San Joaquin
+
+``` bash
+interface fa0/1
+switchport mode trunk
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 10,20
+exit
+```
+
+---
+
+#### **DHCP Router**
+
+``` bash
+service dhcp
+ip dhcp pool San Joaquin
+network 10.15.64.0 255.255.248.0
+default-router 10.15.64.1
+```
+
+``` bash
+service dhcp
+ip dhcp pool San Rafael
+network 110.15.72.0 255.255.248.0
+default-router 10.15.72.1
+```
+
+#### **Ruteo entre VLANS**
+
+
+**San Jose** -  *Tibas*
+
+``` bash
+interface ge0/0.10
+encapsulation dot1Q 10
+ip address 10.15.80.0 255.255.255.0
+exit
+
+interface ge0/0.20
+encapsulation dot1Q 20
+ip address 10.15.81.0 255.255.255.0
+exit
+```
+
+
+**San Jose** -  *Uruca*
+
+``` bash
+interface ge0/1.10
+encapsulation dot1Q 10
+ip address 10.15.82.0 255.255.255.0
+exit
+
+interface ge0/1.20
+encapsulation dot1Q 20
+ip address 10.15.83.1 255.255.255.0
+exit
+```
+
+
+**Alajuela** -  *Garita*
+``` bash
+interface ge0/0.10
+encapsulation dot1Q 10
+ip address 10.15.0.0 255.255.240.0
+exit
+
+interface ge0/0.20
+encapsulation dot1Q 20
+ip address 10.15.16.0 255.255.240.0
+exit
+```
+
+**Alajuela** -  *Coyol*
+
+``` bash
+interface ge0/1.10
+encapsulation dot1Q 10
+ip address 10.15.32.0 255.255.240.0
+exit
+
+interface ge0/1.20
+encapsulation dot1Q 20
+ip address 10.15.48.0 255.255.240.0
+exit
+```
+
+**Heredia** -  *San Joaquin*
+``` bash
+interface ge0/1.10
+encapsulation dot1Q 10
+ip address 10.15.64.0 255.255.252.0255.255.252.0
+exit
+
+interface ge0/1.20
+encapsulation dot1Q 20
+ip address 10.15.68.0 255.255.252.0
+exit
+```
+
+**Heredia** -  *San Rafael*
+``` bash
+interface ge0/0.10
+encapsulation dot1Q 10
+ip address 10.15.72.0 255.255.252.0
+exit
+
+interface ge0/0.20
+encapsulation dot1Q 20
+ip address 10.15.76.0 255.255.252.0
+exit
+```
+
+#### **Ruteo**
+
+**San Jose**
+
+``` bash
+ip route 10.15.0.0 255.255.224.0 se0/2/1
+ip route 10.15.32.0 255.255.224.0 se0/2/1
+
+ip route 10.15.64.0 255.255.248.0 se0/2/0
+ip route 10.15.72.0 255.255.248.0 se0/2/0
+```
+
+**Alajuela**
+
+``` bash
+ip route 10.15.80.0 255.255.254.0 se0/2/0
+ip route 10.15.82.0 255.255.254.0 se0/2/0
+
+ip route 10.15.64.0 255.255.248.0 se0/2/0
+ip route 10.15.72.0 255.255.248.0 se0/2/0
+
+```
+
+**Heredia**
+
+``` bash
+ip route 10.15.80.0 255.255.254.0 se0/2/0
+ip route 10.15.82.0 255.255.254.0 se0/2/0
+
+ip route 10.15.0.0 255.255.224.0 se0/2/0
+ip route 10.15.32.0 255.255.224.0 se0/2/0
+
+
+```
 
 
 ## Showrun 
