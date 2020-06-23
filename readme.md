@@ -955,7 +955,7 @@ A su vez `Uruca` se divide en  2 redes para los vlans
 |Nombre  | Dirección de red | Primera utilizable | Ultima utilizable | Broadcast     | Mascara            |
 |--------|------------------|--------------------|-------------------|---------------|--------------------|
 |Soporte | 10.15.82.0       | 10.15.82.1         | 10.15.82.254      | 10.15.82.255  | 255.255.255.0/24   |      
-|Datos	 | 10.15.83.1       | 10.15.83.1         | 10.15.83.254      | 10.15.83.255  | 255.255.255.0/24   | 
+|Datos	 | 10.15.83.0       | 10.15.83.1         | 10.15.83.254      | 10.15.83.255  | 255.255.255.0/24   | 
 
 
 
@@ -1016,21 +1016,7 @@ exit
 
 ---
 
-#### **DHCP Router**
 
-``` bash
-service dhcp
-ip dhcp pool San Joaquin
-network 10.15.64.0 255.255.248.0
-default-router 10.15.64.1
-```
-
-``` bash
-service dhcp
-ip dhcp pool San Rafael
-network 110.15.72.0 255.255.248.0
-default-router 10.15.72.1
-```
 
 #### **Ruteo entre VLANS**
 
@@ -1040,7 +1026,7 @@ default-router 10.15.72.1
 ``` bash
 interface gi0/0.10
 encapsulation dot1Q 10
-ip address 10.15.80.01255.255.255.0
+ip address 10.15.80.1 255.255.255.0
 exit
 
 interface gi/0.20
@@ -1151,6 +1137,57 @@ ip route 10.15.0.0 255.255.224.0 se0/2/0
 ip route 10.15.32.0 255.255.224.0 se0/2/0
 
 
+```
+
+#### **DHCP Router**
+
+
+##### Servidores 
+
+Para cada Vlan se debe crear un servidor 
+
+```
+ip config  [ip]
+mask [mask]
+default getWay [getway]
+
+getway [getway]
+star ip [startIp]
+mascara [startIp]
+```
+
+``` bash
+service dhcp
+ip dhcp pool San_Joaquin_Datos
+network 10.15.64.0 255.255.252.0
+default-router 10.15.64.1
+```
+
+``` bash
+service dhcp
+ip dhcp pool San_Joaquin_Soporte
+network 10.15.68.0 255.255.252.0
+default-router 10.15.68.1
+```
+
+``` bash
+service dhcp
+ip dhcp pool San_Rafael_Datos
+network 10.15.76.0 255.255.252.0
+default-router 10.15.76.1
+```
+
+``` bash
+service dhcp
+ip dhcp pool San_Rafael_Soporte
+network 10.15.72.0 255.255.252.0
+default-router 10.15.72.1
+```
+``` bash
+ip dhcp excluded-address 10.15.64.1 10.15.64.10
+ip dhcp excluded-address 10.15.68.1 10.15.68.10
+ip dhcp excluded-address 10.15.76.1 10.15.76.10
+ip dhcp excluded-address 10.15.72.1 10.15.72.10
 ```
 
 
