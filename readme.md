@@ -1010,7 +1010,6 @@ Tibas, Uruca, Garita, Coyol, San Rafael, San Joaquin
 ``` bash
 interface fa0/1
 switchport mode trunk
-switchport trunk encapsulation dot1q
 switchport trunk allowed vlan 10,20
 exit
 ```
@@ -1039,14 +1038,14 @@ default-router 10.15.72.1
 **San Jose** -  *Tibas*
 
 ``` bash
-interface ge0/0.10
+interface gi0/0.10
 encapsulation dot1Q 10
-ip address 10.15.80.0 255.255.255.0
+ip address 10.15.80.01255.255.255.0
 exit
 
-interface ge0/0.20
+interface gi/0.20
 encapsulation dot1Q 20
-ip address 10.15.81.0 255.255.255.0
+ip address 10.15.81.1 255.255.255.0
 exit
 ```
 
@@ -1054,12 +1053,12 @@ exit
 **San Jose** -  *Uruca*
 
 ``` bash
-interface ge0/1.10
+interface gi0/1.10
 encapsulation dot1Q 10
-ip address 10.15.82.0 255.255.255.0
+ip address 10.15.82.1 255.255.255.0
 exit
 
-interface ge0/1.20
+interface gi0/1.20
 encapsulation dot1Q 20
 ip address 10.15.83.1 255.255.255.0
 exit
@@ -1068,54 +1067,54 @@ exit
 
 **Alajuela** -  *Garita*
 ``` bash
-interface ge0/0.10
+interface gi0/0.10
 encapsulation dot1Q 10
-ip address 10.15.0.0 255.255.240.0
+ip address 10.15.0.1 255.255.240.0
 exit
 
-interface ge0/0.20
+interface gi0/0.20
 encapsulation dot1Q 20
-ip address 10.15.16.0 255.255.240.0
+ip address 10.15.16.1 255.255.240.0
 exit
 ```
 
 **Alajuela** -  *Coyol*
 
 ``` bash
-interface ge0/1.10
+interface gi0/1.10
 encapsulation dot1Q 10
-ip address 10.15.32.0 255.255.240.0
+ip address 10.15.32.1 255.255.240.0
 exit
 
-interface ge0/1.20
+interface gi0/1.20
 encapsulation dot1Q 20
-ip address 10.15.48.0 255.255.240.0
+ip address 10.15.48.1 255.255.240.0
 exit
 ```
 
 **Heredia** -  *San Joaquin*
 ``` bash
-interface ge0/1.10
+interface gi0/1.10
 encapsulation dot1Q 10
-ip address 10.15.64.0 255.255.252.0255.255.252.0
+ip address 10.15.64.1 255.255.252.0
 exit
 
-interface ge0/1.20
+interface gi0/1.20
 encapsulation dot1Q 20
-ip address 10.15.68.0 255.255.252.0
+ip address 10.15.68.1 255.255.252.0
 exit
 ```
 
 **Heredia** -  *San Rafael*
 ``` bash
-interface ge0/0.10
+interface gi0/0.10
 encapsulation dot1Q 10
-ip address 10.15.72.0 255.255.252.0
+ip address 10.15.72.1 255.255.252.0
 exit
 
-interface ge0/0.20
+interface gi0/0.20
 encapsulation dot1Q 20
-ip address 10.15.76.0 255.255.252.0
+ip address 10.15.76.1 255.255.252.0
 exit
 ```
 
