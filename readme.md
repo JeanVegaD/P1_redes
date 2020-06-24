@@ -48,10 +48,6 @@ En la siguiente ilustracion se detalla la topologia realizada en la herramienta 
 ![Conexiones realizadas](./assets/conexiones.PNG)
 
 
-
-
-
-
 ## Subneteo
 
 Para realizar la distirbucion se brindo la siguiente red `10.15.0.0/16`
@@ -99,7 +95,7 @@ Se requiere distirbuir de la sigueinte forma:
 ```
 ---
 
-A su vez a `Alajuela` se divide de la sigueinte forma:
+A su vez a `Alajuela` se divide de la siguiente forma:
 
 | Red      |  Host |
 |----------|-------|
@@ -880,7 +876,7 @@ A su vez `Uruca` se divide en  2 redes para los vlans
 |Alajuela|10.15.0.0         | 10.15.0.1          | 10.15.63.254      | 10.15.63.255  | 255.255.192.0/18   |      
 |Heredia | 10.15.64.0       | 10.15.64.1         | 10.15.79.254      | 10.15.79.255  | 255.255.240.0/20   | 
 |San Jose| 10.15.80.0       | 10.15.80.1         | 10.15.83.254      | 10.15.83.255  | 255.255.252.0/22   |
-|Enlace 1|  10.15.84.0      | 10.15.84.1         | 10.15.84.2        | 10.15.84.3    | 255.255.255.252/29 |
+|Enlace 1| 10.15.84.0       | 10.15.84.1         | 10.15.84.2        | 10.15.84.3    | 255.255.255.252/29 |
 |Enlace 2| 10.15.84.4       | 10.15.84.5         | 10.15.84.6        | 10.15.84.7    | 255.255.255.252/29 |
 
 #### Alajuela 
@@ -1015,7 +1011,6 @@ exit
 ```
 
 ---
-
 
 
 #### **Ruteo entre VLANS**
@@ -1192,3 +1187,19 @@ ip dhcp excluded-address 10.15.72.1 10.15.72.10
 
 
 ## Showrun 
+
+
+A continuación, veremos los show run ejecutados en cada uno de los routers
+
+
+#### San Jose
+
+![Showrun San Jose](./assets/showRun_San_Jose.PNG)
+
+#### Alajuela
+
+![Showrun Alajuela](./assets/showRun_Alajuela.PNG)
+
+#### Heredia
+
+![Showrun Heredia](./assets/showRun_Heredia.PNG)
