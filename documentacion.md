@@ -34,7 +34,7 @@ Las virtualziacion de las redes fue realizada en el programa Cisco Packet Tracer
 - 3 `Router 2901`
 - 6 `Switch 2960`
 - 12 `Laptods`
-- 2 `Server-PT`
+- 8 `Server-PT`
 
 A 2 de los routers fue necesario incluirles el modulo `HWIC-2T` para permitir las conexiones mediante el puerto serial de tipo `0/0/0`.
 
