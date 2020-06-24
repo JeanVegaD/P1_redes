@@ -1029,7 +1029,7 @@ encapsulation dot1Q 10
 ip address 10.15.80.1 255.255.255.0
 exit
 
-interface gi/0.20
+interface gi0/0.20
 encapsulation dot1Q 20
 ip address 10.15.81.1 255.255.255.0
 exit
